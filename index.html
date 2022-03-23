@@ -26,6 +26,18 @@
         }
 
         async function openInterface() {
+            function createInput() {
+                let pathText = document.createTextNode('E:\\USERS\\067> ');
+                let input = document.createElement('p');
+                input.innerHTML = '';
+                input.id = 'input';
+                input.style.display = 'inline';
+                input.contentEditable = 'true';
+                document.body.appendChild(pathText); 
+                document.body.appendChild(input);
+                input = document.getElementById('input').focus();
+            }
+
             spinner.style.display = 'none';
             authText.style.display = 'none';
             document.body.appendChild(document.createTextNode('AUTHORIZATION SUCCESSFUL.'));
@@ -36,6 +48,9 @@
             await sleep(1000);
             document.body.appendChild(document.createTextNode('ENTER A VALID CERBERUS ID TO ACCESS PROFILE INFORMATION.'));
             document.body.appendChild(document.createElement('br'));
+            document.body.appendChild(document.createElement('br'));
+            await sleep(500);
+            createInput();
         }
 
         function spin() {
@@ -56,7 +71,7 @@
                     i = 0;
                 }
                 e++;
-                if (e > 15) {
+                if (e > 7) {
                     clearInterval(authInterval); 
                     openInterface();
                 }
