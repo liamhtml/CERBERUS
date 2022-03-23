@@ -5,29 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
 
-    <title>Page Title</title>
+    <title>CERBERUS INTERFACE</title>
 
-    <link rel="stylesheet" href="/assets/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
 
     <meta charset="utf-8">
-    <meta name="description" content="Page description">
-    <meta name="keywords" content="keyword, keyword">
-    <meta property="og:title" content="Page Title">
-    <meta property="og:description" content="Page description">
-    <meta property="og:image" content="/assets/img/logo.png">
-    <meta property="og:image:alt" content="Image description">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.mywebsite.com/page">
-    <link rel="canonical" href="https://www.mywebsite.com/page">
-
-    <link rel="icon" href="/assets/img/favicon.ico">
-    <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <meta name="description" content="Papers, please">
 </head>
 
-<body>
+<body onload="spin()">
+    <noscript>Enable JavaScript to use this page, loser</noscript>
+    <div id="spinner"></div>
+    <p id="auth-text">AUTHORIZING...</p>
+    <script>
+        let spinner = document.getElementById('spinner');
+        let authText = document.getElementById('auth-text');
 
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function openInterface() {
+            spinner.style.display = 'none';
+            authText.style.display = 'none';
+            document.body.appendChild(document.createTextNode('AUTHORIZATION SUCCESSFUL.'));
+            document.body.appendChild(document.createElement('br'));
+            await sleep(1000);
+            document.body.appendChild(document.createTextNode('WELCOME TO THE CERBERUS INTERFACE v1.0'));
+            document.body.appendChild(document.createElement('br'));
+            await sleep(1000);
+            document.body.appendChild(document.createTextNode('ENTER A VALID CERBERUS ID TO ACCESS PROFILE INFORMATION.'));
+            document.body.appendChild(document.createElement('br'));
+        }
+
+        function spin() {
+            let i = 0;
+            let e = 0;
+            authInterval = setInterval(() => {
+                if (i == 0) {
+                    authText.innerHTML = "AUTHORIZING";
+                    i++
+                } else if (i == 1) {
+                    authText.innerHTML = "AUTHORIZING.";
+                    i++
+                } else if (i == 2) {
+                    authText.innerHTML = "AUTHORIZING..";
+                    i++
+                } else if (i == 3) {
+                    authText.innerHTML = "AUTHORIZING...";
+                    i = 0;
+                }
+                e++;
+                if (e > 15) {
+                    clearInterval(authInterval); 
+                    openInterface();
+                }
+            }, 500);
+
+        }
+    </script>
 </body>
 
 </html>
