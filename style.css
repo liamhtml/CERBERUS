@@ -36,10 +36,24 @@ body {
 }
 
 @keyframes spin {
-  from {transform: rotate(0deg);}
-  to {transform: rotate(360deg);}
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
 }
 
-[contenteditable] {
-  outline: 0px solid transparent;
+#input {
+    outline: 0px solid transparent;
+    border: none;
+    background-color: black;
+    color: lawngreen;
+    font-family: 'Red Hat Mono', monospace;
+    font-weight: bold;
+}
+
+.old-input {
+    outline: 0px solid transparent;
+    border: none;
+    background-color: black;
+    color: lawngreen;
+    font-family: 'Red Hat Mono', monospace;
+    font-weight: bold;
 }

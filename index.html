@@ -35,10 +35,13 @@
         async function openInterface() {
             function createInput() {
                 let pathText = document.createTextNode('E:\\USERS\\067> ');
-                let input = document.createElement('span');
+                let input = document.createElement('input');
                 input.innerHTML = '';
                 input.id = 'input';
+                input.size = '50';
+                input.style.display = 'inline';
                 input.contentEditable = 'true';
+                input.setAttribute('spellcheck', 'false');
                 document.body.appendChild(pathText); 
                 document.body.appendChild(input);
                 input = document.getElementById('input').focus();
@@ -48,9 +51,11 @@
                     // if the enter key was the one pressed
                     if (event.charCode == 13) {
                         console.log('enter key pressed');
-                        let input = document.getElementById('input');
-                        input.id = '';
-                        input.contentEditable = 'false';
+                        let oldInput = document.getElementById('input');
+                        oldInput.id = '';
+                        oldInput.classList = 'old-input';
+                        oldInput.contentEditable = 'false';
+                        oldInput.disabled = 'true';
                         document.body.appendChild(document.createElement('br'));
                         createInput();
                     }
