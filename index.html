@@ -21,6 +21,13 @@
         let spinner = document.getElementById('spinner');
         let authText = document.getElementById('auth-text');
 
+        // restricts focus to the input
+        document.addEventListener("click", () => {
+            if (document.getElementById('input')) {
+                document.getElementById('input').focus();
+            }
+        });
+
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
@@ -28,14 +35,26 @@
         async function openInterface() {
             function createInput() {
                 let pathText = document.createTextNode('E:\\USERS\\067> ');
-                let input = document.createElement('p');
-                input.innerHTML = ' ';
+                let input = document.createElement('span');
+                input.innerHTML = '';
                 input.id = 'input';
-                input.style.display = 'inline';
                 input.contentEditable = 'true';
                 document.body.appendChild(pathText); 
                 document.body.appendChild(input);
                 input = document.getElementById('input').focus();
+
+                // handles enter key presses
+                document.getElementById('input').addEventListener("keypress", (event) => {
+                    // if the enter key was the one pressed
+                    if (event.charCode == 13) {
+                        console.log('enter key pressed');
+                        let input = document.getElementById('input');
+                        input.id = '';
+                        input.contentEditable = 'false';
+                        document.body.appendChild(document.createElement('br'));
+                        createInput();
+                    }
+                });
             }
 
             spinner.style.display = 'none';
