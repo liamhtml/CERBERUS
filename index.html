@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 
     <meta charset="utf-8">
-    <meta name="description" content="Papers, please">
+    <meta name="description" content="Papers, please...">
 </head>
 
 <body onload="spin()">
@@ -47,16 +47,63 @@
                 input = document.getElementById('input').focus();
 
                 // handles enter key presses
-                document.getElementById('input').addEventListener("keypress", (event) => {
+                document.getElementById('input').addEventListener("keypress", async (event) => {
                     // if the enter key was the one pressed
                     if (event.charCode == 13) {
-                        console.log('enter key pressed');
                         let oldInput = document.getElementById('input');
+                        if (oldInput.value.toLowerCase() == 'exit') close()
                         oldInput.id = '';
                         oldInput.classList = 'old-input';
                         oldInput.contentEditable = 'false';
                         oldInput.disabled = 'true';
                         document.body.appendChild(document.createElement('br'));
+                        let response = await fetch(`https://mzgxlcexfb.execute-api.us-east-2.amazonaws.com/dev`, {
+                            method: 'POST',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                id: oldInput.value
+                            }),
+                            redirect: 'follow'
+                        })
+                        if (response.ok) {
+                            output = await response.json()
+                            
+                            document.body.appendChild(document.createElement('br'));
+                            document.body.appendChild(document.createTextNode(`${output.status}: ${output.message}`));
+                            document.body.appendChild(document.createElement('br'));
+                            if (output.body) {
+                                document.body.appendChild(document.createTextNode(`LOADING DATA...`));
+                                document.body.appendChild(document.createElement('br'));
+                                await sleep(3000);
+
+                                document.body.appendChild(document.createElement('br'));
+                                document.body.appendChild(document.createTextNode(`CID: ${output.body.ID}`));
+                                document.body.appendChild(document.createElement('br'));
+                                await sleep(1000);
+
+                                document.body.appendChild(document.createTextNode(`Name: ${output.body.name}`));
+                                document.body.appendChild(document.createElement('br'));
+                                await sleep(1000);
+
+                                document.body.appendChild(document.createTextNode(`Gamertag: ${output.body.gamertag}`));
+                                document.body.appendChild(document.createElement('br'));
+                                await sleep(1000);
+
+                                document.body.appendChild(document.createTextNode(`Tier: ${output.body.tier}`));
+                                document.body.appendChild(document.createElement('br'));
+                                await sleep(1000);
+
+                                document.body.appendChild(document.createTextNode(`Expires: ${output.body.expires}`));
+                                document.body.appendChild(document.createElement('br'));
+                                document.body.appendChild(document.createElement('br'));
+                            }
+                        } else {
+                            document.body.appendChild(document.createTextNode(`HTTP Error: ${response.status}`));
+                            document.body.appendChild(document.createElement('br'));
+                        }
+                        await sleep(1000);
                         createInput();
                     }
                 });
