@@ -51,7 +51,6 @@
                     // if the enter key was the one pressed
                     if (event.charCode == 13) {
                         let oldInput = document.getElementById('input');
-                        if (oldInput.value.toLowerCase() == 'exit') close()
                         oldInput.id = '';
                         oldInput.classList = 'old-input';
                         oldInput.contentEditable = 'false';
