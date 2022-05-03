@@ -55,7 +55,6 @@
                         oldInput.classList = 'old-input';
                         oldInput.contentEditable = 'false';
                         oldInput.disabled = 'true';
-                        document.body.appendChild(document.createElement('br'));
                         let response = await fetch(`https://mzgxlcexfb.execute-api.us-east-2.amazonaws.com/dev`, {
                             method: 'POST',
                             headers: {
@@ -102,7 +101,6 @@
                             document.body.appendChild(document.createTextNode(`HTTP Error: ${response.status}`));
                             document.body.appendChild(document.createElement('br'));
                         }
-                        await sleep(1000);
                         createInput();
                     }
                 });
